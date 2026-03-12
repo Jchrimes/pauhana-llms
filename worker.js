@@ -6,7 +6,20 @@ export default {
       const body = await fetch(
         "https://raw.githubusercontent.com/Jchrimes/pauhana-llms/main/llms.txt"
       ).then(r => r.text());
+      return new Response(body, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "Cache-Control": "public, max-age=86400",
+          "X-Served-By": "llms-worker"
+        },
+      });
+    }
 
+    if (pathname === "/llms-full.txt" || pathname === "/llms-full.txt/") {
+      const body = await fetch(
+        "https://raw.githubusercontent.com/Jchrimes/pauhana-llms/main/llms-full.txt"
+      ).then(r => r.text());
       return new Response(body, {
         status: 200,
         headers: {
